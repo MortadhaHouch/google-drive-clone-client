@@ -1,0 +1,11 @@
+{
+    "name": "extension name",
+    "version": "extension version",
+    "description": "extension description",
+    "manifest_version": 3,
+    "author": "extension author",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "extension default title"
+    }
+}
