@@ -22,7 +22,7 @@ import Shared from './components/Shared.jsx';
 store.subscribe(()=>{
   console.log("data store connected");
 })
-let isLoggedIn = store.getState().isLoggedIn;
+let {isLoggedIn} = store.getState().isLoggedIn;
 let router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App/>}>

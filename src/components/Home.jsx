@@ -43,9 +43,9 @@ export default function Home() {
             width:"100vw",
             gap:"100px"
         }}>
-            <section style={{width:"100%",height:"fit-content"}}>
-                <div className="h-auto d-flex flex-column justify-content-center align-items-center landing" style={{
-                    width:"clamp(300px,40%,600px)",
+            <section className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap">
+                <div className="landing" style={{
+                    width:"clamp(300px,40%,500px)",
                     borderRadius:"20px",
                     borderTop:"1px solid white",
                     borderRight:"1px solid white",
@@ -53,13 +53,13 @@ export default function Home() {
                 }}>
                     <h2 style={{
                         color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EBF4F6":"#071952",
-                        fontSize:36,
+                        fontSize:25,
                         marginBottom:40,
                         fontFamily:'"Lobster Two", sans-serif'
                     }}>Store your files <span style={{color:"#17153B"}}>securely</span> and <span style={{color:"#17153B"}}>permanently</span></h2>
                     <p id="welcome-text" style={{
                         color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EBF4F6":"#071952",
-                        fontSize:"20px"
+                        fontSize:"15px"
                     }}>Welcome to our state-of-the-art file storage system, where your data&apos;s security and accessibility are our top priorities. Our platform is designed to offer you a seamless and efficient way to store, manage, and access your files from anywhere, at any time. Whether you&apos;re an individual looking for a reliable storage solution or a business in need of scalable data management, our system is built to cater to your unique needs. Experience the peace of mind that comes with knowing your data is safe, organized, and just a click away.</p>
                     <div className="d-flex flex-row justify-content-center align-items-center" style={{
                         gap:"15px",

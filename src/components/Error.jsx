@@ -9,7 +9,7 @@ export default function Error() {
       minHeight:"100vh",
       height:"fit-content"
     }}>
-      <Animation state="loading"/>
+      Error
     </main>
   )
 }

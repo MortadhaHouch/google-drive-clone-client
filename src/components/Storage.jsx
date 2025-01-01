@@ -1,7 +1,7 @@
 import {PieChart} from "@mui/x-charts"
 export default function Storage() {
     return (
-        <main className="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+        <section className="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
             <PieChart
                 colors={["red","green","blue"]}
                 series={
@@ -32,6 +32,6 @@ export default function Storage() {
                 width={300}
                 height={300}
             />
-        </main>
+        </section>
     )
 }

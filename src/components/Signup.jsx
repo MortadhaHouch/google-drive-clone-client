@@ -9,6 +9,7 @@ import FileUpload from "./FileUpload";
 import sign from "jwt-encode"
 import { LoginContext } from "../providers/LoginProvider";
 import { DarkThemeContext } from "../providers/DarkTheme";
+import Animation from "./Animation";
 export default function Signup() {
     let [email ,setEmail] = useState("");
     let [password ,setPassword] = useState("");
@@ -19,9 +20,12 @@ export default function Signup() {
     let [nameError,setNameError] = useState("");
     let darkTheme = useContext(DarkThemeContext);
     let [cookie,setCookie,removeCookie] = useCookies(["jwt_token"]);
-    let [file,setFile] = useState(null);
+    let [file,setFile] = useState("");
     let dispatch = useDispatch();
     let {isLoggedIn,setIsLoggedIn} = useContext(LoginContext);
+    useEffect(()=>{
+        setFile(file);
+    },[file])
     async function handleSubmit(e){
         e.preventDefault();
         try {
@@ -31,8 +35,7 @@ export default function Signup() {
                 password,
                 email,
                 file
-            },"json",setIsLoading);
-            console.log(jwtDecode(request.token));
+            },"json","json",setIsLoading);
             if(jwtDecode(request.token).isVerified){
                 setIsLoggedIn(true);
                 dispatch(checkIsLoggedIn("LOGIN"));
@@ -69,12 +72,16 @@ export default function Signup() {
         }
     }
     return (
-        <main className="w-100 d-flex flex-column justify-content-center align-items-center" style={{
-            backgroundColor:(darkTheme.isDark|| JSON.parse(localStorage.getItem("isDark")))?"#3C0753":"#9290C3",
-            minHeight:"100vh",
-            height:"fit-content",
-            padding:100
-        }}>
+        <main 
+            className="d-flex flex-column justify-content-center align-items-center" 
+            style={{
+                backgroundColor:(darkTheme.isDark|| JSON.parse(localStorage.getItem("isDark")))?"#3C0753":"#9290C3",
+                maxHeight:"140vh",
+                height:"fit-content",
+                width:"100vw",
+                padding:"20px",
+                paddingTop:"160px",
+            }}>
             <form action="" method="post" onSubmit={handleSubmit} className="w-50 d-flex flex-column justify-content-center align-items-center" encType="multipart/form-data">
                 <div className="mb-3 w-100">
                     <label htmlFor="firstName" className="form-label">first name</label>
@@ -104,9 +111,9 @@ export default function Signup() {
                         required
                     />
                 </div>
-                <>
+                <div className="w-100 d-flex flex-row justify-content-center align-items-center">
                     <FileUpload file={file} setFile={setFile} multiple={false}/>
-                </>
+                </div>
                 <div className="mb-3 w-100">
                     <label htmlFor="email" className="form-label">email</label>
                     <input
@@ -141,7 +148,11 @@ export default function Signup() {
                         <div className="arrow"></div>
                     </div>
                 </button>
-                <p>{isLoading?"loading":"not loading"}</p>
+                {
+                    isLoading && (
+                        <Animation state="login"/>
+                    )
+                }
                 {
                     emailError && (
                         <p>{emailError}</p>

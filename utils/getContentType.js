@@ -1,5 +1,6 @@
 export default function getContentType(file){
-    switch (file.name.split(".")[1]) {
+    const extension = file.name.split(".").pop().toLowerCase();
+    switch (extension) {
         case "html": 
         case "htm": 
         case "shtml":

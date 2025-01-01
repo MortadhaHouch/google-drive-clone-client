@@ -25,49 +25,49 @@ export default function Aside() {
             <ul>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard"}><VscOpenPreview /><span>preview</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/files"}><FaFile/><span>files</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/folders"}><FaFolder/><span>folders</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/shared"}><FaShare/><span>shared with me</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/storage"}><MdStorage/><span>storage space</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/bin"}><ImBin2/><span>bin</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/plans"}><MdPayment/><span>plans</span></NavLink>
                 </li>
                 <li 
                     style={{color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EEEEEE":"#134B70"}}>
-                    <NavLink className="nav-link d-flex flex-row justify-content-start align-items-center" 
+                    <NavLink className="nav-link w-100 d-flex flex-row justify-content-start align-items-center" 
                     style={{gap:10}} 
                     to={"/dashboard/notifications"}><MdNotifications/><span>notifications</span></NavLink>
                 </li>

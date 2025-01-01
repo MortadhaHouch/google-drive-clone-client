@@ -25,7 +25,7 @@ export default function Login() {
             let request = await fetchData("/user/login","POST",{
                 email:email.trim(),
                 password:password.trim(),
-            },"json",setIsLoading)
+            },"json","json",setIsLoading)
             if(jwtDecode(request.token).isVerified){
                 setIsLoggedIn(true);
                 dispatch(checkIsLoggedIn("LOGIN"));

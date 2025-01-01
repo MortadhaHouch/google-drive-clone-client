@@ -29,10 +29,15 @@ export default function Header() {
         return ()=>setMessage("");
     },[message])
     return (
-        <header className=" d-flex flex-row justify-content-between align-items-center w-100 p-3 fixed-top" style={{
+        <header className="d-flex flex-row justify-content-between align-items-center p-1 position-absolute" style={{
             backgroundColor:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"rgba(32, 30, 67, 0.75)":"rgba(238, 238, 238, 0.75)",
             backdropFilter:"blur(10px)",
-            zIndex:100
+            width:"100vw",
+            left:"0",
+            top:"0",
+            zIndex:"10",
+            boxShadow:"0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
+            border:"1px solid rgba(255,255,255,.18)",
         }}>
             <div className="container d-flex flex-row justify-content-start align-items-center gx-3">
                 <Logo/>

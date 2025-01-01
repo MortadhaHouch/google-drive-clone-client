@@ -1,33 +1,54 @@
-import sign from "jwt-encode"
-async function fetchData(url, method, body, contentType, setIsLoading) {
+import sign from "jwt-encode";
+
+async function fetchData(url, method, body, contentType, expectedContentType, setIsLoading) {
     let headers = {
-        "Set-Cookie":`jwt_token=${document.cookie?.jwt_token}`
+        "Set-Cookie": `jwt_token=${document.cookie?.jwt_token}`
     };
     let requestBody = null;
-    if (contentType === "json") {
-        requestBody = JSON.stringify({body:sign(body,import.meta.env.VITE_SECRET_KEY)});
-        headers["Content-Type"] = "application/json";
-    }else{
-        requestBody = body;
+    switch (method) {
+        case "GET":
+        case "DELETE":
+            requestBody = null;
+            break;
+        case "POST":
+        case "PUT":
+            if (contentType === "json") {
+                headers["Content-Type"] = "application/json";
+                requestBody = JSON.stringify(body);
+            } else if (contentType === "formData") {
+                requestBody = new FormData();
+                Object.keys(body).forEach(key => {
+                    const value = body[key];
+                    if (Array.isArray(value)) {
+                        value.forEach((item) => requestBody.append(key, item));
+                    } else if (value instanceof File) {
+                        requestBody.append(key, value);
+                    } else {
+                        requestBody.append(key, JSON.stringify(value));
+                    }
+                });
+            }
+            break;
+        default:
+            throw new Error("Unsupported HTTP method");
     }
     try {
         setIsLoading(true);
         const request = await fetch(`${import.meta.env.VITE_REQUEST_URL}${url}`, {
             method,
-            body:requestBody,
+            body: requestBody,
             headers,
-            credentials:"include"
+            credentials: "include"
         });
-        if (contentType === "json") {
+        if (expectedContentType === "json") {
             return await request.json();
-        } else if (contentType === "blob"){
+        } else if (expectedContentType === "blob") {
             return await request.blob();
-        }else if (contentType === "formData"){
+        } else if (expectedContentType === "formData") {
             const formData = await request.formData();
-            // Extract file and additional data
             const file = formData.get('file');
             const additionalData = JSON.parse(formData.get('data'));
-            return {file,additionalData};
+            return { file, additionalData };
         }
     } catch (error) {
         console.error(error);

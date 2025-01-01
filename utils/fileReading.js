@@ -18,6 +18,7 @@ async function fileReading(file){
                 fileReader.readAsDataURL(file);
                 break;
             case "text/css":
+            case "text/csv":
             case "text/html":
             case "text/mathml":
             case "text/plain":
@@ -25,8 +26,8 @@ async function fileReading(file){
             case "text/vnd.wap.wml":
             case "text/x-component":
             case "text/xml":
-                    fileReader.readAsText(file);
-                    break;
+                fileReader.readAsText(file);
+                break;
             default:
                 break;
         }
