@@ -29,7 +29,7 @@ async function fileReading(file){
                 fileReader.readAsText(file);
                 break;
             default:
-                break;
+                res(null);
         }
         fileReader.onload = ()=>{
             res(fileReader.result);

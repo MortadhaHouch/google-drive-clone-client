@@ -5,19 +5,29 @@
     box-sizing: border-box;
     transition: .25s;
 }
+*::selection{
+    background: cornflowerblue;
+    color: white;
+}
 body{
     overflow-x: hidden;
+    font-family: 'Lobster Two', cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
 }
 #root{
-    width: 100vw;
-    height: 100vh;
-    max-height: fit-content;
+    width: 100%;
+    min-height: 100%;
 }
 aside{
     width: 250px;
     height: fit-content;
     min-height: 100vh;
-    z-index: 10;
+    z-index: 50;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -151,7 +161,7 @@ div:has(div.file-upload) div.file-upload svg{
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
     background-color: rgb(255, 65, 65);
 }
-section.files-display.grid{
+div.files-display.grid{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -161,7 +171,7 @@ section.files-display.grid{
     flex-wrap: wrap;
     gap: 10px;
 }
-section.files-display.grid > div.file-container{
+div.files-display.grid  div.file-container{
     width: clamp(200px, 30%, 250px);
     aspect-ratio: 1/1;
     display: flex;
@@ -178,17 +188,17 @@ section.files-display.grid > div.file-container{
     cursor: pointer;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
-section.files-display.column{
+div.files-display.column{
     width: 100%;
     height: fit-content;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
 }
-section.files-display.column > div.file-container{
+div.files-display.column  div.file-container{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -205,8 +215,9 @@ section.files-display.column > div.file-container{
     cursor: pointer;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
-section.files-display > div.file-container svg:hover {
-    scale: 1.1;
+div.files-display  div.file-container svg:hover {
+    scale: 1.25;
+    stroke: rgb(0, 217, 255);
 }
 /* plus sign */
 .sign {
@@ -512,6 +523,8 @@ section.popup{
     z-index: 1000;
     width: 100vw;
     min-height:100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
     background: rgba( 0, 0, 0, 0.25 );
     backdrop-filter: blur( 10px );
     -webkit-backdrop-filter: blur( 10px );
@@ -651,3 +664,38 @@ footer button:hover svg{
     transform: translateY(-20px);
     filter: drop-shadow(0px 0px 2px #E5B8F4);
 }
+.loader {
+    display: inline-grid;
+    width: 30px;
+    aspect-ratio: 1;
+    background: #574951;
+    animation: 
+      l12-0 4s steps(4) infinite,
+      l12-1 6s linear infinite;
+  }
+  .loader::before,
+  .loader::after {
+    content: "";
+    grid-area: 1/1;
+    background: #83988E;
+    clip-path: polygon(100% 50%,65.45% 97.55%,9.55% 79.39%,9.55% 20.61%,65.45% 2.45%);
+    transform-origin: right;
+    translate: -100% 50%;
+    scale: 1.7;
+    animation: l12-2 1s linear infinite;
+  }
+  .loader::after {
+    clip-path: polygon(90.45% 79.39%,34.55% 97.55%,0% 50%,34.55% 2.45%,90.45% 20.61%);
+    transform-origin: left;
+    translate: 100% -50%;
+  }
+  @keyframes l12-0 {
+    to{rotate: 1turn}
+  }
+  @keyframes l12-1 {
+    to{transform: rotate(1turn)}
+  }
+  @keyframes l12-2 {
+    0%{rotate:  36deg}
+    to{rotate: -126deg}
+  }

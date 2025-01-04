@@ -36,7 +36,7 @@ export default function AccountPreview() {
         handleDataLoad()
     },[])
     return (
-        <section className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap">
+        <main className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap">
             <Tilt style={{
                 display:"flex",
                 flexDirection:"column",
@@ -276,6 +276,6 @@ export default function AccountPreview() {
                     opacity:.75
                 }}>Folders Shared</h3>
             </Tilt>
-        </section>
+        </main>
     )
 }

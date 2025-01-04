@@ -19,6 +19,7 @@ import AccountPreview from './components/AccountPreview.jsx';
 import Files from './components/Files.jsx';
 import Folders from './components/Folders.jsx';
 import Shared from './components/Shared.jsx';
+import File from './components/File.jsx';
 store.subscribe(()=>{
   console.log("data store connected");
 })
@@ -41,6 +42,8 @@ let router = createBrowserRouter(
               <Route path="bin" element={<Bin/>}/>
               <Route path="notifications" element={<Notifications/>}/>
             </Route>
+            <Route path="file/:id" element={<File/>}/>
+            <Route path="folder/:id" element={<File/>}/>
             <Route path="recent" element={<Recent/>}/>
           </>
         ):(

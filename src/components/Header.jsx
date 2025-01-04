@@ -29,13 +29,13 @@ export default function Header() {
         return ()=>setMessage("");
     },[message])
     return (
-        <header className="d-flex flex-row justify-content-between align-items-center p-1 position-absolute" style={{
+        <header className="d-flex flex-row justify-content-between align-items-center p-1 position-sticky" style={{
             backgroundColor:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"rgba(32, 30, 67, 0.75)":"rgba(238, 238, 238, 0.75)",
             backdropFilter:"blur(10px)",
             width:"100vw",
             left:"0",
             top:"0",
-            zIndex:"10",
+            zIndex:"50",
             boxShadow:"0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
             border:"1px solid rgba(255,255,255,.18)",
         }}>

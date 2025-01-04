@@ -15,6 +15,7 @@ import { IoGrid } from "react-icons/io5";
 import { LuFileScan } from "react-icons/lu";
 import { HiDotsVertical } from "react-icons/hi"
 import Dialog from "./Dialog"
+import { audioExtensions, imageExtensions, textExtensions, videoExtensions } from "../../utils/constants";
 export default function Files() {
     let { isDark } = useContext(DarkThemeContext);
     let [multiple, setMultiple] = useState(true);
@@ -27,8 +28,8 @@ export default function Files() {
     let [isLoading, setIsLoading] = useState(false);
     let [componentName, setComponentName] = useState("preview");
     let [isGrid,setIsGrid] = useState(true);
-    const [previewItem,setPreviewedItem] = useState(null);
     const [isShown,setIsShown] = useState(false);
+    const [previewItem,setPreviewedItem] = useState(null);
     async function handleDataLoad() {
         try {
             let request = await fetchData("/file/1", "GET", null, "json", "json", setIsLoading);
@@ -46,7 +47,7 @@ export default function Files() {
         console.log(previewItem);
     },[previewItem])
     return (
-        <section 
+        <main 
             className="d-flex flex-column justify-content-start align-items-center" 
             style={{
                 backgroundColor: isDark || JSON.parse(localStorage.getItem("isDark")) ? "#071952" : "#EBF4F6",
@@ -55,7 +56,7 @@ export default function Files() {
                 padding: "20px",
             }}
         >
-        <div className="d-flex gap-1">
+        <div className="d-flex flex-row justify-content-center align-items-center gap-2">
             <button 
                 className={`btn ${componentName === "preview" ? "btn-primary" : "btn-info"}`}
                 onClick={() => setComponentName("preview")}
@@ -137,21 +138,47 @@ export default function Files() {
                         ref={(el) => containerRefs.current.push(el)}
                         className="file-container"
                     >
-                        <LuFileScan 
-                            style={{ position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} 
-                            color={isDark || JSON.parse(localStorage.getItem("isDark")) ? "#fff" : "#000"}
-                            size={20}
+                        <button 
+                            className="btn"
                             onClick={async() => {
                                 try{
                                     setIsShown(true);
-                                    const request = await fetchData(`/file/by-id/${item.id}`, "GET", null, "json", "formData", setIsLoading);
-                                    setPreviewedItem(request);
-                                    console.log(previewItem);
+                                    if(videoExtensions.includes(item.name.split(".").pop())|| audioExtensions.includes(item.name.split(".").pop())){
+                                        setPreviewedItem({
+                                            file:import.meta.env.VITE_REQUEST_URL+"/file/buffer/"+item.id,
+                                            additionalData:{
+                                                name:item.name,
+                                                views:item.views,
+                                                downloads:item.downloads,
+                                                size:item.size,
+                                                createdAt:item.createdAt,
+                                                updatedAt:item.updatedAt,
+                                                isPrivate:item.isPrivate,
+                                                isFile:true,
+                                                owner:{
+                                                    firstName:"item.owner.firstName",
+                                                    lastName:"item.owner.lastName",
+                                                    email:"item.owner.email"
+                                                }
+                                            }
+                                        });
+                                    }else if(imageExtensions.includes(item.name.split(".").pop()) || textExtensions.includes(item.name.split(".").pop())){
+                                        const request = await fetchData("/file/by-id/"+item.id,"GET",null,"json","formData",setIsLoading);
+                                        setPreviewedItem(request);
+                                    }else{
+                                        setPreviewedItem(null);
+                                    }
                                 }catch(error){
                                     console.log(error);
                                 }
                             }}
-                        />
+                        >
+                            <LuFileScan 
+                                style={{ position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} 
+                                color={isDark || JSON.parse(localStorage.getItem("isDark")) ? "#fff" : "#000"}
+                                size={20}
+                            />
+                        </button>
                         <DataContainer item={item} />
                     </div>
                 ))
@@ -182,6 +209,6 @@ export default function Files() {
                 <Dialog setIsShown={setIsShown} isShown={true} fileItem={previewItem}/>
             )
         }
-        </section>
+        </main>
     );
 }

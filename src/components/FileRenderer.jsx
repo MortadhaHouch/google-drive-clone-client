@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import getContentType from '../../utils/getContentType';
 import fileReading from '../../utils/fileReading';
-
+import { audioExtensions, videoExtensions } from '../../utils/constants';
+import JsonView from '@uiw/react-json-view';
 export default function FileRenderer(props) {
     const [fileData, setFileData] = useState(props.file);
     useEffect(()=>{
@@ -9,9 +10,11 @@ export default function FileRenderer(props) {
     },[fileData])
     async function handleFileParsing(){
         try {
-            let fileObj = await fileReading(props.file);
-            if(fileObj){
-                setFileData(fileObj);
+            if(!(audioExtensions.includes(props.metadata.name.split(".")[props.metadata.name.split(".").length - 1])||videoExtensions.includes(props.metadata.name.split(".")[props.metadata.name.split(".").length - 1]))){
+                let fileObj = await fileReading(props.file);
+                if(fileObj){
+                    setFileData(fileObj);
+                }
             }
         } catch (error) {
             console.log(error);
@@ -24,11 +27,11 @@ export default function FileRenderer(props) {
         )
     }else if(mimeType.includes("video")){
         return (
-            <video src={URL.createObjectURL(props.file)} controls style={{width:"clamp(300px,40%,450px)",height:"auto"}}/>
+            <video src={props.file} controls style={{width:"clamp(300px,40%,450px)",height:"auto"}}/>
         )
     }else if(mimeType.includes("audio")){
         return (
-            <audio src={URL.createObjectURL(props.file)} controls style={{width:"clamp(250px,40%,350px)",height:"auto"}}/>
+            <audio src={props.file.path} controls style={{width:"clamp(250px,40%,350px)",height:"auto"}}/>
         )
     }else if(mimeType.includes("pdf")){
         return (

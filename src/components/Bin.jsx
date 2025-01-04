@@ -4,10 +4,10 @@ import { DarkThemeContext } from "../providers/DarkTheme";
 export default function Bin() {
     let {isDark} = useContext(DarkThemeContext);
     return (
-        <section className="w-100 d-flex flex-column justify-content-center align-items-center" style={{
+        <main className="w-100 d-flex flex-column justify-content-center align-items-center" style={{
             backgroundColor:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#071952":"#EBF4F6",
             minHeight:"100vh",
             height:"fit-content"
-        }}>Bin</section>
+        }}>Bin</main>
     )
 }

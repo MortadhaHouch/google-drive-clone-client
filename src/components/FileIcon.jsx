@@ -23,8 +23,8 @@ export function FileIcon(props){
                         src={JPGFileEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -36,21 +36,21 @@ export function FileIcon(props){
                         src={zipExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
                     />
                 )
-                case "zip":
+                case "xml":
                 return (
                     <img 
                         src={xmlExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -62,8 +62,8 @@ export function FileIcon(props){
                         src={txtExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -75,8 +75,8 @@ export function FileIcon(props){
                         src={mp4Ext} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -88,8 +88,8 @@ export function FileIcon(props){
                         src={htmlExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -101,8 +101,8 @@ export function FileIcon(props){
                         src={cppExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -114,8 +114,8 @@ export function FileIcon(props){
                         src={MpegEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -127,8 +127,8 @@ export function FileIcon(props){
                         src={AIFileEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -140,8 +140,8 @@ export function FileIcon(props){
                         src={DocFileEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -153,8 +153,8 @@ export function FileIcon(props){
                         src={PDFFileEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -166,8 +166,8 @@ export function FileIcon(props){
                         src={PNGFileEx} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -178,8 +178,8 @@ export function FileIcon(props){
                     <img 
                         src={PPTFileEx} 
                         alt="file type" 
-                        style={{width:100,
-                            height:100,
+                        style={{width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light"
                         }}
@@ -191,8 +191,8 @@ export function FileIcon(props){
                         src={FileExt} 
                         alt="file type" 
                         style={{
-                            width:100,
-                            height:100,
+                            width:props.size||100,
+                            height:props.size||100,
                             borderRadius:"10px",
                             mixBlendMode:"soft-light",
                             objectFit:"cover",
@@ -203,7 +203,7 @@ export function FileIcon(props){
         }
     }else{
         return (
-            <img src={FolderEx} alt="file type" style={{width:100,height:100,borderRadius:"10px",mixBlendMode:"soft-light"}} />
+            <img src={FolderEx} alt="file type" style={{width:props.size||100,height:props.size||100,borderRadius:"10px",mixBlendMode:"soft-light"}} />
         )
     }
 }
