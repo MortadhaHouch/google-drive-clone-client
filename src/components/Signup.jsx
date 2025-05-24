@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import fetchData from "../../utils/fetchData";
-import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { checkIsLoggedIn } from "../../reducers/actions";
 import { useCookies } from "react-cookie";
@@ -29,21 +28,22 @@ export default function Signup() {
     async function handleSubmit(e){
         e.preventDefault();
         try {
-            let request = await fetchData("/user/signup","POST",{
+            let {data,isVerified} = await fetchData("/user/signup","POST",{
                 firstName,
                 lastName,
                 password,
                 email,
                 file
             },"json","json",setIsLoading);
-            if(jwtDecode(request.token).isVerified){
+            if(isVerified){
                 setIsLoggedIn(true);
+                const {email,firstName,lastName,avatar} = data;
                 dispatch(checkIsLoggedIn("LOGIN"));
                 localStorage.setItem("isLoggedIn",true);
-                localStorage.setItem("email",jwtDecode(request.token).email);
-                localStorage.setItem("firstName",jwtDecode(request.token).firstName);
-                localStorage.setItem("lastName",jwtDecode(request.token).lastName);
-                localStorage.setItem("avatar",jwtDecode(request.token).avatar);
+                localStorage.setItem("email",email);
+                localStorage.setItem("firstName",firstName);
+                localStorage.setItem("lastName",lastName);
+                localStorage.setItem("avatar",avatar);
                 setCookie(
                     "jwt_token",
                     sign({
@@ -56,14 +56,14 @@ export default function Signup() {
                         expires:new Date(Date.now()+1000*60*60*24*30),
                     }
                 )
-            }else if(jwtDecode(request.token).email_error){
+            }else if(request.email_error){
                 setIsLoggedIn(false);
-                setEmailError(jwtDecode(request.token).email_error);
+                setEmailError(request.email_error);
                 dispatch(checkIsLoggedIn("LOGOUT"));
                 localStorage.setItem("isLoggedIn",false);
-            }else if(jwtDecode(request.token).firstName_error){
+            }else if(request.firstName_error){
                 setIsLoggedIn(false);
-                setNameError(jwtDecode(request.token).firstName_error);
+                setNameError(request.firstName_error);
                 dispatch(checkIsLoggedIn("LOGOUT"));
                 localStorage.setItem("isLoggedIn",false);
             }
@@ -73,16 +73,17 @@ export default function Signup() {
     }
     return (
         <main 
-            className="d-flex flex-column justify-content-center align-items-center" 
+            className="d-flex min-vw-100 min-vh-100 flex-column justify-content-center align-items-center" 
             style={{
                 backgroundColor:(darkTheme.isDark|| JSON.parse(localStorage.getItem("isDark")))?"#3C0753":"#9290C3",
-                maxHeight:"140vh",
-                height:"fit-content",
-                width:"100vw",
-                padding:"20px",
                 paddingTop:"160px",
             }}>
-            <form action="" method="post" onSubmit={handleSubmit} className="w-50 d-flex flex-column justify-content-center align-items-center" encType="multipart/form-data">
+            <form 
+                action="" method="post" 
+                onSubmit={handleSubmit} 
+                className="d-flex flex-column justify-content-center align-items-center" 
+                style={{width:"clamp(300px,40%,450px)"}}
+            >
                 <div className="mb-3 w-100">
                     <label htmlFor="firstName" className="form-label">first name</label>
                     <input

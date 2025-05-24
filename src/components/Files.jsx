@@ -3,19 +3,22 @@ import { DarkThemeContext } from "../providers/DarkTheme";
 import FileUpload from "./FileUpload";
 import DataContainer, { formatFileSize } from "./DataContainer";
 import DocumentViewer from "./DocumentViewer";
-import { MdOutlineRemoveCircleOutline } from "react-icons/md";
+import { MdMemory, MdOutlineRemoveCircleOutline } from "react-icons/md";
 import fetchData from "../../utils/fetchData";
-import { jwtDecode } from "jwt-decode";
 import NoDataFound from "../assets/no-file.svg";
 import { AiOutlineFileSearch } from "react-icons/ai";
 import { RiFileAddLine } from "react-icons/ri";
-import { IoCloudUploadOutline } from "react-icons/io5";
+import { IoCloudUploadOutline, IoList } from "react-icons/io5";
 import { FileIcon } from "./FileIcon";
 import { IoGrid } from "react-icons/io5";
-import { LuFileScan } from "react-icons/lu";
+import { LuFileScan, LuFolderSearch2 } from "react-icons/lu";
 import { HiDotsVertical } from "react-icons/hi"
 import Dialog from "./Dialog"
-import { audioExtensions, imageExtensions, textExtensions, videoExtensions } from "../../utils/constants";
+import { audioExtensions, documentBasedExtensions, imageExtensions, textExtensions, videoExtensions } from "../../utils/constants";
+import { TiFolderAdd } from "react-icons/ti";
+import { TbLetterS } from "react-icons/tb";
+import { FaLock, FaRegEye, FaSortAmountUp } from "react-icons/fa";
+import { BsCalendar2Date } from "react-icons/bs";
 export default function Files() {
     let { isDark } = useContext(DarkThemeContext);
     let [multiple, setMultiple] = useState(true);
@@ -27,9 +30,10 @@ export default function Files() {
     const [fileUrl, setFileUrl] = useState("");
     let [isLoading, setIsLoading] = useState(false);
     let [componentName, setComponentName] = useState("preview");
-    let [isGrid,setIsGrid] = useState(true);
+    let [isGrid,setIsGrid] = useState(false);
     const [isShown,setIsShown] = useState(false);
     const [previewItem,setPreviewedItem] = useState(null);
+    const [searchTerm,setSearchTerm] = useState("");
     async function handleDataLoad() {
         try {
             let request = await fetchData("/file/1", "GET", null, "json", "json", setIsLoading);
@@ -43,9 +47,6 @@ export default function Files() {
     useEffect(() => {
         handleDataLoad();
     }, []);
-    useEffect(()=>{
-        console.log(previewItem);
-    },[previewItem])
     return (
         <main 
             className="d-flex flex-column justify-content-start align-items-center" 
@@ -112,7 +113,6 @@ export default function Files() {
                                     formData.append(key, value);
                                 }
                                 let request = await fetchData("/file/upload", "POST", filesToUpload, "formData", "json", setIsLoading);
-                                let response = jwtDecode(request.token);
                             } catch (error) {
                                 console.log(error);
                                 
@@ -131,15 +131,107 @@ export default function Files() {
                     backgroundColor: isDark || JSON.parse(localStorage.getItem("isDark")) ? "#071952" : "#EBF4F6",
                 }}
             >
+                <div className="d-flex flex-row justify-content-between align-items-center flex-wrap gap-2 position-fixed w-100 p-2" style={{top:80,left:0,width:"100vw",zIndex:30,backgroundColor:isDark || JSON.parse(localStorage.getItem("isDark"))?"rgba( 31, 38, 135, 0.75 )":"rgba(235, 244, 246, 0.75)",backdropFilter:"blur(10px)"}}>
+                    <div className="d-flex flex-row justify-content-start align-items-center gap-2">
+                        <button 
+                            className={`btn ${componentName == "preview"?"btn-primary":"btn-info"}`}
+                            onClick={async()=>{
+                                try {
+                                    setComponentName("preview")
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            }}
+                            ><LuFolderSearch2 /><span>show</span></button>
+                        <button 
+                            className={`btn ${componentName == "upload"?"btn-primary":"btn-info"}`}
+                            onClick={async()=>{
+                                try {
+                                    setComponentName("upload")
+                                } catch (error) {
+                                    console.log(error);
+                                }
+                            }}
+                        ><TiFolderAdd /><span>upload</span></button>
+                    </div>
+                    <div className="d-flex flex-row justify-content-end align-items-center gap-2">
+                        <input value={searchTerm} onChange={(e)=>setSearchTerm(e.target.value)} type="search" name="" id="" className="form-control" />
+                        <button disabled={searchTerm.length === 0} className="btn btn-primary">search</button>
+                        <button 
+                            title="sort by name" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                let sorted = files.sort((a,b)=>a.name.localeCompare(b.name));
+                                setFiles(sorted);
+                            }}
+                        >
+                            <TbLetterS /><FaSortAmountUp/>
+                        </button>
+                        <button 
+                            title="sort by date" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                let sorted = files.sort((a,b)=>new Date(a.createdOn) - new Date(b.createdOn));
+                                setFiles(sorted);
+                            }}
+                        >
+                            <BsCalendar2Date /><FaSortAmountUp/>
+                        </button>
+                        <button 
+                            title="sort by size" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                let sorted = files.sort((a,b)=>a.size - b.size);
+                                setFiles(sorted);
+                            }}
+                        >
+                            <MdMemory /><FaSortAmountUp/>
+                        </button>
+                        <button 
+                            title="sort by views count" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                let sorted = files.sort((a,b)=>a.views - b.views);
+                                setFiles(sorted);
+                            }}
+                        >
+                            <FaRegEye /><FaSortAmountUp/>
+                        </button>
+                        <button 
+                            title="sort by privacy state" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                let sorted = files.sort((a,b)=>a.isPrivate - b.isPrivate);
+                                setFiles(sorted);
+                            }}
+                        >
+                            <FaLock /><FaSortAmountUp/>
+                        </button>
+                        <button 
+                            title="sort by privacy state" 
+                            className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-1"
+                            onClick={()=>{
+                                setIsGrid((val)=>!val)
+                            }}
+                        >
+                            {isGrid?<IoList/>:<IoGrid/>}
+                        </button>
+                    </div>
+                </div>
             {files.length > 0 ? (
                 files.map((item, index) => (
                     <div 
                         key={index} 
                         ref={(el) => containerRefs.current.push(el)}
-                        className="file-container"
+                        className={`file-container position-relative ${isGrid?"flex-column":"flex-row w-100"}`}
+                        style={{
+                            boxShadow:isDark||JSON.parse(localStorage.getItem("isDark"))?"0px 0px 2px #EBF4F6" : "0px 0px 2px #071952",
+                            borderRadius:10
+                        }}
                     >
                         <button 
-                            className="btn"
+                            className="btn btn-primary position-absolute"
+                            style={{top:0,right:0}}
                             onClick={async() => {
                                 try{
                                     setIsShown(true);
@@ -155,18 +247,16 @@ export default function Files() {
                                                 updatedAt:item.updatedAt,
                                                 isPrivate:item.isPrivate,
                                                 isFile:true,
-                                                owner:{
-                                                    firstName:"item.owner.firstName",
-                                                    lastName:"item.owner.lastName",
-                                                    email:"item.owner.email"
-                                                }
                                             }
                                         });
                                     }else if(imageExtensions.includes(item.name.split(".").pop()) || textExtensions.includes(item.name.split(".").pop())){
                                         const request = await fetchData("/file/by-id/"+item.id,"GET",null,"json","formData",setIsLoading);
-                                        setPreviewedItem(request);
-                                    }else{
-                                        setPreviewedItem(null);
+                                        console.log(request);
+                                        setPreviewedItem(request)
+                                    }else if(documentBasedExtensions.includes(item.name.split(".").pop())){
+                                        const request = await fetchData("/file/by-id/"+item.id,"GET",null,"json","formData",setIsLoading);
+                                        console.log(request);
+                                        setPreviewedItem(request)
                                     }
                                 }catch(error){
                                     console.log(error);
@@ -174,10 +264,10 @@ export default function Files() {
                             }}
                         >
                             <LuFileScan 
-                                style={{ position: "absolute", top: "10px", right: "10px", cursor: "pointer" }} 
                                 color={isDark || JSON.parse(localStorage.getItem("isDark")) ? "#fff" : "#000"}
                                 size={20}
                             />
+                            view
                         </button>
                         <DataContainer item={item} />
                     </div>

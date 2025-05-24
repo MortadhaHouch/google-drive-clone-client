@@ -26,7 +26,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -39,7 +39,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -52,7 +52,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -65,7 +65,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -78,7 +78,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -91,7 +91,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -104,7 +104,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -117,7 +117,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -130,7 +130,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -143,7 +143,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -156,7 +156,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -169,7 +169,7 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -181,7 +181,7 @@ export function FileIcon(props){
                         style={{width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light"
+                            
                         }}
                     />
                 )
@@ -194,7 +194,6 @@ export function FileIcon(props){
                             width:props.size||100,
                             height:props.size||100,
                             borderRadius:"10px",
-                            mixBlendMode:"soft-light",
                             objectFit:"cover",
                             objectPosition:"center"
                         }}
@@ -203,7 +202,7 @@ export function FileIcon(props){
         }
     }else{
         return (
-            <img src={FolderEx} alt="file type" style={{width:props.size||100,height:props.size||100,borderRadius:"10px",mixBlendMode:"soft-light"}} />
+            <img src={FolderEx} alt="file type" style={{width:props.size||100,height:props.size||100,borderRadius:"10px",}} />
         )
     }
 }

@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { FileIcon } from "./FileIcon";
+import { DarkThemeContext } from "../providers/DarkTheme";
 
 /* eslint-disable react/prop-types */
 export default function DataContainer(props) {
+    const themeContext = useContext(DarkThemeContext)
     return (
         <>
-            <h5>{props.item.name}</h5>
-            <h6>{formatFileSize(props.item.size)}</h6>
             <FileIcon file={props.item} isFile={props.item.isFile}/>
+            <h5 className={`${themeContext.isDark||JSON.parse(localStorage.getItem("isDark"))?"text-light":"text-dark"}`}>{props.item.name.length > 10?props.item.name.slice(0,10)+"...":props.item.name}</h5>
+            <h6 className={`${themeContext.isDark||JSON.parse(localStorage.getItem("isDark"))?"text-light":"text-dark"} opacity-75`}>{formatFileSize(props.item.size)}</h6>
         </>
     )
 }

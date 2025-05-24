@@ -6,7 +6,6 @@ import { useContext, useEffect, useState } from "react";
 import { MdDashboard, MdOutlineLightMode, MdTimer } from "react-icons/md";
 import { MdDarkMode } from "react-icons/md";
 import fetchData from "../../utils/fetchData";
-import { jwtDecode } from "jwt-decode";
 import { useCookies } from "react-cookie";
 import { checkIsLoggedIn } from "../../reducers/actions";
 import { useDispatch } from "react-redux";
@@ -84,9 +83,8 @@ export default function Header() {
                                                     let request = await fetchData("/user/logout","POST",{
                                                         email:localStorage.getItem("email"),
                                                     },"json",setIsLoading);
-                                                    console.log(jwtDecode(request.token));
-                                                    if(jwtDecode(request.token).message){
-                                                        setMessage(jwtDecode(request.token).message);
+                                                    if(request.message){
+                                                        setMessage(request.message);
                                                         removeCookie("jwt_token",{
                                                             path:"/"
                                                         });
@@ -97,10 +95,10 @@ export default function Header() {
                                                         localStorage.removeItem("avatar");
                                                         localStorage.removeItem("firstName");
                                                         localStorage.removeItem("lastName");
-                                                    }else if(jwtDecode(request.token).error){
-                                                        setMessage(jwtDecode(request.token).error);
+                                                    }else if(request.error){
+                                                        setMessage(request.error);
                                                     }else{
-                                                        console.log(jwtDecode(request.token));
+                                                        console.log(request);
                                                     }
                                                 } catch (error) {
                                                     console.log(error);

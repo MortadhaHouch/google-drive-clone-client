@@ -100,18 +100,21 @@ export default function Dialog(props) {
                     props.fileItem && (
                         <div className="file-preview">
                             <div className="owner-data">
-                                <img src="" width={70} height={70} style={{border:"2px solid white",borderRadius:"50%"}} alt="avatar" />
+                                <img src={props.fileItem.additionalData.owner.avatar} width={70} height={70} style={{border:"2px solid white",borderRadius:"50%"}} alt="avatar" />
                                 <h3 className={`${themeContext.isDark||localStorage.getItem("isDark")?"text-light":"text-dark"}`}>{props.fileItem.additionalData.owner.firstName} {props.fileItem.additionalData.owner.lastName}</h3>
                                 <h5 className={`${themeContext.isDark||localStorage.getItem("isDark")?"text-light":"text-dark"}`}>{props.fileItem.additionalData.owner.email}</h5>
                             </div>
                             <div className={`file-data ${themeContext.isDark||localStorage.getItem("isDark")?"text-light":"text-dark"}`}>
-                                <div>
-                                    <p>{props.fileItem.additionalData.name}</p>
-                                    <p>{formatFileSize(props.fileItem.additionalData.size)}</p>
-                                    <p><span>{props.fileItem.additionalData.views}</span> <HiEye size={15}/></p>
-                                    <p>{props.fileItem.additionalData.isPrivate?<HiLockClosed size={15}/>:<HiLockOpen size={15}/>}</p>
+                                <p  className="m-0">{props.fileItem.additionalData.name}</p>
+                                <div className="position-relative w-100 d-flex justify-content-between align-items-center p-2">
+                                    <p className="m-0">{formatFileSize(props.fileItem.additionalData.size)}</p>
+                                    <p className="m-0"><span>{props.fileItem.additionalData.views}</span> <HiEye size={15}/></p>
+                                    <p className="m-0">{props.fileItem.additionalData.isPrivate?<HiLockClosed size={15}/>:<HiLockOpen size={15}/>}</p>
+                                    <button className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-2"><IoDownload size={15}/> <span>{props.fileItem.additionalData.downloads} Download</span></button>
+                                    <NavLink to={`/file/${props.fileItem.additionalData.id}`} target="_blank" className="d-flex flex-row justify-content-start align-items-center gap-2 nav-link">
+                                        <MdOpenInNew/>
+                                    </NavLink>
                                 </div>
-                                <button className="btn btn-info d-flex flex-row justify-content-center align-items-center gap-2"><IoDownload size={15}/> <span>{props.fileItem.additionalData.downloads} Download</span></button>
                             </div>
                             <FileRenderer file={props.fileItem.file} metadata={props.fileItem.additionalData}/>
                         </div>

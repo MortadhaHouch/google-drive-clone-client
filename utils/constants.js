@@ -19,4 +19,5 @@ const objectBasedExtensions = [
     "md",
     "json5"
 ]
-export {videoExtensions, audioExtensions,imageExtensions,textExtensions,objectBasedExtensions };
+const documentBasedExtensions = ["doc", "docx", "odt", "pdf", "rtf", "tex", "txt", "wps", "wri", "wpd"];
+export {videoExtensions, audioExtensions,imageExtensions,textExtensions,objectBasedExtensions,documentBasedExtensions };

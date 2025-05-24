@@ -20,15 +20,21 @@ export default function File() {
     async function handleDataLoading(){
         try {
             const request = await fetchData(`/file/by-id/${id}`,"GET",null,"json","formData",setIsLoading)
-            if(request.isVerified){
+            if(request.additionalData.isVerified){
                 setFile(request);
             }else if(request.user_error){
                 setErrorType(()=>{return {user:true,file:false,auth:false}})
+                console.log(errorType);
+                
             }else if(request.file_error){
                 setErrorType(()=>{return {user:false,file:true,auth:false}})
+                console.log(errorType);
+                
                 setFile(null);
             }else if(request.auth_error){
                 setErrorType(()=>{return {user:false,file:false,auth:true}})
+                console.log(errorType);
+                
             }
         } catch (error) {
             console.log(error);
@@ -69,7 +75,7 @@ export default function File() {
                                 !(errorType.user && errorType.auth) && (
                                     <div className="file-preview">
                                         <div className="owner-data">
-                                            <img src="" width={70} height={70} style={{border:"2px solid white",borderRadius:"50%"}} alt="avatar" />
+                                            <img src={file.additionalData.owner.avatar} width={70} height={70} style={{border:"2px solid white",borderRadius:"50%"}} alt="avatar" />
                                             <h3 className={`${themeContext.isDark||localStorage.getItem("isDark")?"text-light":"text-dark"}`}>{file.additionalData.owner.firstName} {file.additionalData.owner.lastName}</h3>
                                             <h5 className={`${themeContext.isDark||localStorage.getItem("isDark")?"text-light":"text-dark"}`}>{file.additionalData.owner.email}</h5>
                                         </div>

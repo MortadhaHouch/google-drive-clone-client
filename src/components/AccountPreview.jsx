@@ -1,7 +1,6 @@
 import Tilt from "react-parallax-tilt"
 import { DarkThemeContext } from "../providers/DarkTheme";
 import { useContext, useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import StorageImage from "../assets/server_740505.png"
 import FolderShareImage from "../assets/file-security_11514758.png"
 import FileDownloadImage from "../assets/file_14910297.png"
@@ -26,8 +25,7 @@ export default function AccountPreview() {
     async function handleDataLoad(){
         try {
             let request = await fetchData("/user/preview","GET",null,"json","json",setIsLoading);
-            let response = jwtDecode(request.token);
-            setUserData(response);
+            setUserData(request);
         } catch (error) {
             console.log(error);
         }
@@ -36,7 +34,7 @@ export default function AccountPreview() {
         handleDataLoad()
     },[])
     return (
-        <main className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap">
+        <main className="w-100 d-flex flex-row justify-content-center align-items-center flex-wrap gap-2">
             <Tilt style={{
                 display:"flex",
                 flexDirection:"column",
@@ -187,35 +185,6 @@ export default function AccountPreview() {
                     opacity:.75
                 }}>used monthly</h3>
             </Tilt>
-            {/* <Tilt style={{
-                display:"flex",
-                flexDirection:"column",
-                justifyContent:"center",
-                alignItems:"center",
-                width:"clamp(200px,40%,300px)",
-                height:"fit-content",
-                backgroundColor:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"rgba(7, 65, 115, 0.75)":"rgba(255, 255, 255, 0.25)",
-                backdropFilter:"blur(10px)",
-                padding:"10px 15px",
-                borderRadius:15,
-                boxShadow:"0 8px 32px 0 rgba( 31, 38, 135, 0.37 )",
-                border:"1px solid rgba(255,255,255,.18)"
-            }}>
-                <h2
-                style={{
-                    color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EBF4F6":"#071952",
-                    fontSize:"25px",
-                    cursor:"pointer",
-                    opacity:.75
-                }}>10</h2>
-                <h3
-                style={{
-                    color:(isDark|| JSON.parse(localStorage.getItem("isDark")))?"#EBF4F6":"#071952",
-                    fontSize:"15px",
-                    cursor:"pointer",
-                    opacity:.75
-                }}>Collaborations with friends</h3>
-            </Tilt> */}
             <Tilt style={{
                 display:"flex",
                 flexDirection:"column",

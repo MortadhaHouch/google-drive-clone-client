@@ -21,7 +21,7 @@ body{
 }
 #root{
     width: 100%;
-    min-height: 100%;
+    height: 100%;
 }
 aside{
     width: 250px;
@@ -161,7 +161,7 @@ div:has(div.file-upload) div.file-upload svg{
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
     background-color: rgb(255, 65, 65);
 }
-div.files-display.grid{
+section.files-display.grid{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -171,24 +171,23 @@ div.files-display.grid{
     flex-wrap: wrap;
     gap: 10px;
 }
-div.files-display.grid  div.file-container{
-    width: clamp(200px, 30%, 250px);
-    aspect-ratio: 1/1;
+section.files-display.grid > div.file-container{
+    width: clamp(300px,33%,400px);
+    height: fit-content;
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px 0 rgba( 31, 38, 135, 0.37 );
     padding: 10px;
     gap: 10px;
     border-radius: 15px;
-    background: rgba( 255, 255, 255, 0.25 );
     -webkit-backdrop-filter: blur( 4px );
     cursor: pointer;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    border: 1px solid rgba( 255, 255, 255, 0.75 );
+    transform:display .5s;
 }
-div.files-display.column{
+section.files-display.column{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -198,7 +197,7 @@ div.files-display.column{
     flex-wrap: wrap;
     gap: 10px;
 }
-div.files-display.column  div.file-container{
+section.files-display.column > div.file-container{
     width: 100%;
     height: fit-content;
     display: flex;
@@ -206,16 +205,15 @@ div.files-display.column  div.file-container{
     align-items: center;
     justify-content: flex-start;
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 20px 0 rgba( 31, 38, 135, 0.37 );
     padding: 10px;
     gap: 10px;
     border-radius: 15px;
-    background: rgba( 255, 255, 255, 0.25 );
     -webkit-backdrop-filter: blur( 4px );
+    border: 2px solid rgba( 255, 255, 255, 0.75 );
     cursor: pointer;
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    transform:display .5s;
 }
-div.files-display  div.file-container svg:hover {
+section.files-display  div.file-container svg:hover {
     scale: 1.25;
     stroke: rgb(0, 217, 255);
 }
@@ -268,7 +266,7 @@ div.file-preview > div.owner-data > h4{
 div.file-preview > div.file-data{
     width: 100%;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     gap: 10px;

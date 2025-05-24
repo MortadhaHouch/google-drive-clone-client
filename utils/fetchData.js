@@ -1,5 +1,3 @@
-import sign from "jwt-encode";
-
 async function fetchData(url, method, body, contentType, expectedContentType, setIsLoading) {
     let headers = {
         "Set-Cookie": `jwt_token=${document.cookie?.jwt_token}`
